@@ -130,3 +130,7 @@ i.fa-cloud-sun.big {
 i.small {
   font-size: 40px;
 }
+.open-source-link {
+  padding-top: 15px;
+  font-size: small;
+}
