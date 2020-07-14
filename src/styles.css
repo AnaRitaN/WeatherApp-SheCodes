@@ -1,0 +1,132 @@
+.container {
+  font-family: "Noto Sans HK", sans-serif;
+  background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+  width: auto;
+  margin-top: 30px;
+  padding: 20px 30px;
+  border-radius: 10px;
+  border: 0;
+}
+.title {
+  line-height: 20px;
+  padding-top: 15px;
+  border: 0;
+  font-size: small;
+  color: white;
+  font-family: "Source Code Pro", monospace;
+}
+.form-inline {
+  padding: 10px 0px 15px;
+}
+.btn.btn-primary.mb-2 {
+  border: 1px solid;
+  background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+  transition: all 150ms ease-in-out;
+}
+.btn.btn-primary.mb-2:hover {
+  background-image: linear-gradient(
+    to right,
+    #b8cbb8 0%,
+    #b8cbb8 0%,
+    #b465da 0%,
+    #cf6cc9 33%,
+    #ee609c 66%,
+    #ee609c 100%
+  );
+}
+.btn.btn-link {
+  color: white;
+  text-align: left;
+  margin: auto 50px;
+}
+.location {
+  margin: 10px auto;
+}
+.weather {
+  margin: 20px auto;
+}
+i.fa-map-marker-alt {
+  font-size: 60px;
+  display: block;
+  color: white;
+  text-align: left;
+  margin-top: 7px;
+}
+.city {
+  color: white;
+}
+.city strong {
+  font-size: 30px;
+}
+
+i.fa-cloud-sun.big {
+  font-size: 140px;
+  display: block;
+  color: white;
+  text-align: right;
+  margin-top: 15px;
+  margin-bottom: 0em;
+}
+.temperature {
+  font-size: 75px;
+  color: white;
+  line-height: 90px;
+  padding-top: 10px;
+  display: inline;
+}
+.temperature.celsius,
+.temperature.fahrenheit,
+.temperature.dash {
+  font-size: 20px;
+}
+.temperature.celsius:hover,
+.temperature.fahrenheit:hover {
+  color: #b465da;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.sky,
+.precipitationWind {
+  line-height: 20px;
+  text-align: left;
+  margin-left: 5px;
+  color: white;
+  font-size: 13px;
+}
+.sky {
+  font-size: 15px;
+}
+.forecast {
+  padding-bottom: 10px;
+  padding-top: 25px;
+  font-size: 30px;
+  color: white;
+}
+.card.weekDay {
+  border-radius: 10px;
+  background-color: rgba(0, 0, 92, 0.2);
+  border: 0;
+  margin: 5px -10px;
+  color: white;
+  text-align: center;
+  line-height: 50px;
+  transition: all 200ms ease-in-out;
+}
+.card.weekDay:hover {
+  background-image: linear-gradient(
+    to right,
+    #b8cbb8 0%,
+    #b8cbb8 0%,
+    #b465da 0%,
+    #cf6cc9 33%,
+    #ee609c 66%,
+    #ee609c 100%
+  );
+  cursor: pointer;
+}
+.cardTemperature {
+  font-size: 20px;
+}
+i.small {
+  font-size: 40px;
+}
