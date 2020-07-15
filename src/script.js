@@ -7,6 +7,7 @@ function getDigitsMinutes() {
     return `${now.getMinutes()}`;
   }
 }
+function getRealTimeDate() {
   let realTimeDate = document.querySelector("#real-time-date");
   let now = new Date();
   let days = [
