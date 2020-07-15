@@ -25,11 +25,11 @@ function displayDate(dateApi) {
   ];
   let minutes = date.getMinutes();
   if (minutes < 10) {
-    minutes = `0${now.getMinutes()}`;
+    minutes = `0${date.getMinutes()}`;
   }
   return `Last updated on ${days[date.getDay()]}, ${
     months[date.getMonth()]
-  } ${date.getDate()}, at ${date.getHours()}: ${minutes}`;
+  } ${date.getDate()}, at ${date.getHours()}:${minutes}`;
 }
 function search(event) {
   event.preventDefault();
@@ -66,6 +66,33 @@ function showTemperatureCelsius(response) {
   apiWind = Math.round(apiWind);
   let weatherHumidityWind = document.querySelector("#weather-humidity-wind");
   weatherHumidityWind.innerHTML = `Humidity: ${apiHumidity}% <br /> Wind: ${apiWind}m/s`;
+  changeIcon(response.data.weather[0].id);
+  let temperatureImage = document.querySelector("#temperature-image");
+  temperatureImage.setAttribute("alt", response.data.weather[0].description);
+}
+function changeIcon(id) {
+  let temperatureImage = document.querySelector("#temperature-image");
+  if (id === 800) {
+    temperatureImage.setAttribute("class", "fas fa-sun");
+  }
+  if (id >= 801 && id <= 804) {
+    temperatureImage.setAttribute("class", "fas fa-cloud-sun");
+  }
+  if ((id >= 300 && id <= 321) || (id >= 520 && id <= 531)) {
+    temperatureImage.setAttribute("class", "fas fa-cloud-showers-heavy");
+  }
+  if (id >= 500 && id <= 504) {
+    temperatureImage.setAttribute("class", "fas fa-cloud-sun-rain");
+  }
+  if (id >= 200 && id <= 232) {
+    temperatureImage.setAttribute("class", "fas fa-bolt");
+  }
+  if ((id >= 600 && id <= 622) || id === 511) {
+    temperatureImage.setAttribute("class", "fas fa-snowflake");
+  }
+  if (id >= 701 && id <= 781) {
+    temperatureImage.setAttribute("class", "fas fa-smog");
+  }
 }
 function getPosition() {
   navigator.geolocation.getCurrentPosition(handlePosition);
@@ -107,6 +134,9 @@ function showTemperatureFahrenheit(response) {
   apiWind = Math.round(apiWind);
   let weatherHumidityWind = document.querySelector("#weather-humidity-wind");
   weatherHumidityWind.innerHTML = `Humidity: ${apiHumidity}% <br /> Wind: ${apiWind}mph`;
+  changeIcon(response.data.weather[0].id);
+  let temperatureImage = document.querySelector("#temperature-image");
+  temperatureImage.setAttribute("alt", response.data.weather[0].description);
 }
 function getDefaultInfoLisbon() {
   let city = document.querySelector("#real-location");
