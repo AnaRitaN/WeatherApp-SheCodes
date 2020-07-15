@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Weather App</title>
     <link
       rel="stylesheet"
@@ -28,152 +27,158 @@
   </head>
   <body>
     <div class="container">
-      <div class="row title">
-        <div class="col">
-          <strong>
-            Weather App
-          </strong>
-        </div>
-      </div>
-      <div class="row">
-        <div class="searchForm">
-          <form class="form-inline" id="type-city">
-            <div class="form-group mx-sm-3 mb-2">
-              <label for="searched-city" class="sr-only"
-                >Search for a city</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="searched-city"
-                placeholder="❤ Search for a city"
-                autocomplete="off"
-              />
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">
-              Go
-            </button>
-          </form>
-        </div>
-        <button type="button" class="btn btn-link" id="current-location-button">
-          Get weather in current location
-        </button>
-      </div>
-      <div class="row location">
-        <div class="col-md-1">
-          <i class="fas fa-map-marker-alt"></i>
-        </div>
-        <div class="col-md-8">
-          <div class="city">
-            <strong id="real-location">
-              Brussels
+      <div class="weather-app">
+        <div class="row title">
+          <div class="col">
+            <strong>
+              Weather App
             </strong>
-            <br />
-            <div id="real-time-date">
-              Saturday, July 6, 17:50
+          </div>
+        </div>
+        <div class="row">
+          <div class="searchForm">
+            <form class="form-inline" id="type-city">
+              <div class="form-group mx-sm-3 mb-2">
+                <label for="searched-city" class="sr-only"
+                  >Search for a city</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="searched-city"
+                  placeholder="❤ Search for a city"
+                  autocomplete="off"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary mb-2">
+                Go
+              </button>
+            </form>
+          </div>
+          <button
+            type="button"
+            class="btn btn-link"
+            id="current-location-button"
+          >
+            Get weather in current location
+          </button>
+        </div>
+        <div class="row location">
+          <div class="col-md-1">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="col-md-8">
+            <div class="city">
+              <strong id="real-location">
+                Brussels
+              </strong>
+              <br />
+              <div id="real-time-date">
+                Saturday, July 6, 17:50
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row weather">
-        <div class="col-6">
-          <i class="fas fa-cloud-sun big"></i>
-        </div>
-        <div class="col-6">
-          <div class="temperature">
-            <div class="temperature number" id="temperature-number">
-              15
+        <div class="row weather">
+          <div class="col-6">
+            <i class="fas fa-cloud-sun big"></i>
+          </div>
+          <div class="col-6">
+            <div class="temperature">
+              <div class="temperature number" id="temperature-number">
+                15
+              </div>
+              <div class="temperature celsius" id="degrees-celsius">
+                °C
+              </div>
+              <div class="temperature dash">
+                |
+              </div>
+              <div class="temperature fahrenheit" id="degrees-fahrenheit">
+                °F
+              </div>
             </div>
-            <div class="temperature celsius" id="degrees-celsius">
-              °C
+            <div class="sky">
+              Partly cloudy
             </div>
-            <div class="temperature dash">
-              |
-            </div>
-            <div class="temperature fahrenheit" id="degrees-fahrenheit">
-              °F
+            <div class="humidityWind">
+              Humidity: 60%
+              <br />
+              Wind: 5km/h
             </div>
           </div>
-          <div class="sky">
-            Partly cloudy
-          </div>
-          <div class="precipitationWind">
-            Precitipation: 60%
-            <br />
-            Wind: 5km/h
+        </div>
+        <div class="row forecast">
+          <div class="col">
+            Forecast
           </div>
         </div>
-      </div>
-      <div class="row forecast">
-        <div class="col">
-          Forecast
-        </div>
-      </div>
-      <div class="row cards">
-        <div class="col-md-2">
-          <div class="card weekDay">
-            <div class="cardTitle">
-              Sun
+        <div class="row cards">
+          <div class="col-md-2">
+            <div class="card weekDay">
+              <div class="cardTitle">
+                Sun
+              </div>
+              <div class="cardIcon">
+                <i class="fas fa-cloud-sun small"></i>
+              </div>
+              <div class="cardTemperature"><strong>19</strong>°C</div>
             </div>
-            <div class="cardIcon">
-              <i class="fas fa-cloud-sun small"></i>
-            </div>
-            <div class="cardTemperature"><strong>19</strong>°C</div>
           </div>
-        </div>
-        <div class="col-md-2">
-          <div class="card weekDay">
-            <div class="cardTitle">
-              Mon
+          <div class="col-md-2">
+            <div class="card weekDay">
+              <div class="cardTitle">
+                Mon
+              </div>
+              <div class="cardIcon">
+                <i class="fas fa-cloud-sun small"></i>
+              </div>
+              <div class="cardTemperature"><strong>18</strong>°C</div>
             </div>
-            <div class="cardIcon">
-              <i class="fas fa-cloud-sun small"></i>
-            </div>
-            <div class="cardTemperature"><strong>18</strong>°C</div>
           </div>
-        </div>
-        <div class="col-md-2">
-          <div class="card weekDay">
-            <div class="cardTitle">
-              Tue
+          <div class="col-md-2">
+            <div class="card weekDay">
+              <div class="cardTitle">
+                Tue
+              </div>
+              <div class="cardIcon">
+                <i class="fas fa-cloud-sun small"></i>
+              </div>
+              <div class="cardTemperature"><strong>18</strong>°C</div>
             </div>
-            <div class="cardIcon">
-              <i class="fas fa-cloud-sun small"></i>
-            </div>
-            <div class="cardTemperature"><strong>18</strong>°C</div>
           </div>
-        </div>
-        <div class="col-md-2">
-          <div class="card weekDay">
-            <div class="cardTitle">
-              Wed
+          <div class="col-md-2">
+            <div class="card weekDay">
+              <div class="cardTitle">
+                Wed
+              </div>
+              <div class="cardIcon">
+                <i class="fas fa-sun small"></i>
+              </div>
+              <div class="cardTemperature"><strong>22</strong>°C</div>
             </div>
-            <div class="cardIcon">
-              <i class="fas fa-sun small"></i>
-            </div>
-            <div class="cardTemperature"><strong>22</strong>°C</div>
           </div>
-        </div>
-        <div class="col-md-2">
-          <div class="card weekDay">
-            <div class="cardTitle">
-              Thu
+          <div class="col-md-2">
+            <div class="card weekDay">
+              <div class="cardTitle">
+                Thu
+              </div>
+              <div class="cardIcon">
+                <i class="fas fa-sun small"></i>
+              </div>
+              <div class="cardTemperature"><strong>21</strong>°C</div>
             </div>
-            <div class="cardIcon">
-              <i class="fas fa-sun small"></i>
-            </div>
-            <div class="cardTemperature"><strong>21</strong>°C</div>
           </div>
-        </div>
-        <div class="col-md-2">
-          <div class="card weekDay">
-            <div class="cardTitle">
-              Fri
+          <div class="col-md-2">
+            <div class="card weekDay">
+              <div class="cardTitle">
+                Fri
+              </div>
+              <div class="cardIcon">
+                <i class="fas fa-sun small"></i>
+              </div>
+              <div class="cardTemperature"><strong>23</strong>°C</div>
             </div>
-            <div class="cardIcon">
-              <i class="fas fa-sun small"></i>
-            </div>
-            <div class="cardTemperature"><strong>23</strong>°C</div>
           </div>
         </div>
       </div>
