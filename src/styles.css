@@ -102,6 +102,9 @@ i.fa-cloud-sun.big {
 .sky {
   font-size: 15px;
 }
+.sky::first-letter {
+  text-transform: capitalize;
+}
 .forecast {
   padding-bottom: 10px;
   padding-top: 25px;
@@ -138,5 +141,6 @@ i.small {
 }
 .open-source-link {
   padding-top: 15px;
+  padding-bottom: 15px;
   font-size: small;
 }

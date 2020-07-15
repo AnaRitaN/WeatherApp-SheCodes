@@ -29,8 +29,9 @@ function showTemperatureCelsius(response) {
   temperatureCelsius = Math.round(temperatureCelsius);
   let degrees = document.querySelector("#temperature-number");
   degrees.innerHTML = `${temperatureCelsius}`;
-  //let background = document.querySelector("body");
-  //background.style.backgroundImage = "url(images/day-snow.jpg)";
+  let description = response.data.weather[0].description;
+  let weatherDescription = document.querySelector("#weather-description");
+  weatherDescription.innerHTML = `${description}`;
 }
 function getPosition() {
   navigator.geolocation.getCurrentPosition(handlePosition);
