@@ -30,13 +30,15 @@ function showTemperatureCelsius(response) {
   temperatureCelsius = Math.round(temperatureCelsius);
   let degrees = document.querySelector("#temperature-number");
   degrees.innerHTML = `${temperatureCelsius}`;
-  let description = response.data.weather[0].main;
+  let description = response.data.weather[0].description;
   let weatherDescription = document.querySelector("#weather-description");
   weatherDescription.innerHTML = `${description}`;
   let apiHumidity = response.data.main.humidity;
   apiHumidity = Math.round(apiHumidity);
-  let weatherHumidity = document.querySelector("#weather-humidity");
-  weatherHumidity.innerHTML = `Humidity: ${apiHumidity}%`;
+  let apiWind = response.data.wind.speed;
+  apiWind = Math.round(apiWind);
+  let weatherHumidityWind = document.querySelector("#weather-humidity-wind");
+  weatherHumidityWind.innerHTML = `Humidity: ${apiHumidity}% <br /> Wind: ${apiWind}km/h`;
 }
 function getPosition() {
   navigator.geolocation.getCurrentPosition(handlePosition);
