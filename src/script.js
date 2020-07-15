@@ -1,15 +1,5 @@
-function getDigitsMinutes() {
-  let now = new Date();
-  let minutes = now.getMinutes();
-  if (minutes < 10) {
-    return `0${now.getMinutes()}`;
-  } else {
-    return `${now.getMinutes()}`;
-  }
-}
-function getRealTimeDate() {
-  let realTimeDate = document.querySelector("#real-time-date");
-  let now = new Date();
+function displayDate(dateApi) {
+  let date = new Date(dateApi);
   let days = [
     "Sunday",
     "Monday",
@@ -33,9 +23,13 @@ function getRealTimeDate() {
     "November",
     "December",
   ];
-  realTimeDate.innerHTML = `Last updated on ${days[now.getDay()]}, ${
-    months[now.getMonth()]
-  } ${now.getDate()}, at ${now.getHours()}:${getDigitsMinutes()}`;
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${now.getMinutes()}`;
+  }
+  return `Last updated on ${days[date.getDay()]}, ${
+    months[date.getMonth()]
+  } ${date.getDate()}, at ${date.getHours()}: ${minutes}`;
 }
 function search(event) {
   event.preventDefault();
@@ -57,8 +51,8 @@ function showCelsius() {
   axios.get(apiUrlCelsius).then(showTemperatureCelsius);
 }
 function showTemperatureCelsius(response) {
-  getRealTimeDate();
-  console.log(response);
+  let realTimeDate = document.querySelector("#real-time-date");
+  realTimeDate.innerHTML = displayDate(response.data.dt * 1000);
   let temperatureCelsius = response.data.main.temp;
   temperatureCelsius = Math.round(temperatureCelsius);
   let degrees = document.querySelector("#temperature-number");
@@ -98,8 +92,8 @@ function showFahrenheit() {
   axios.get(apiUrlFahrenheit).then(showTemperatureFahrenheit);
 }
 function showTemperatureFahrenheit(response) {
-  getRealTimeDate();
-  console.log(response);
+  let realTimeDate = document.querySelector("#real-time-date");
+  realTimeDate.innerHTML = displayDate(response.data.dt * 1000);
   let temperatureFahrenheit = response.data.main.temp;
   temperatureFahrenheit = Math.round(temperatureFahrenheit);
   let degrees = document.querySelector("#temperature-number");
@@ -114,8 +108,16 @@ function showTemperatureFahrenheit(response) {
   let weatherHumidityWind = document.querySelector("#weather-humidity-wind");
   weatherHumidityWind.innerHTML = `Humidity: ${apiHumidity}% <br /> Wind: ${apiWind}mph`;
 }
-
-getRealTimeDate();
+function getDefaultInfoLisbon() {
+  let city = document.querySelector("#real-location");
+  city.innerHTML = "Lisbon";
+  let apiKey = "0987205707074255a39169907ca55577";
+  let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=lisbon&appid=${apiKey}&units=metric`;
+  axios.get(apiUrlCelsius).then(showTemperatureCelsius);
+  let searchedCity = document.querySelector("#searched-city");
+  searchedCity.value = "Lisbon";
+}
+getDefaultInfoLisbon();
 let form = document.querySelector("#type-city");
 form.addEventListener("submit", search);
 let degreesCelsius = document.querySelector("#degrees-celsius");
