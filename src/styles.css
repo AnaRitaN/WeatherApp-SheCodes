@@ -57,6 +57,7 @@ i.fa-map-marker-alt {
 }
 .city {
   color: white;
+  font-size: 13px;
 }
 .city strong {
   font-size: 35px;

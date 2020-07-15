@@ -1,9 +1,40 @@
-function getDigitsMinutes(minutes) {
+function getDigitsMinutes() {
+  let now = new Date();
+  let minutes = now.getMinutes();
   if (minutes < 10) {
     return `0${now.getMinutes()}`;
   } else {
     return `${now.getMinutes()}`;
   }
+}
+  let realTimeDate = document.querySelector("#real-time-date");
+  let now = new Date();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  realTimeDate.innerHTML = `Last updated on ${days[now.getDay()]}, ${
+    months[now.getMonth()]
+  } ${now.getDate()}, at ${now.getHours()}:${getDigitsMinutes()}`;
 }
 function search(event) {
   event.preventDefault();
@@ -25,6 +56,7 @@ function showCelsius() {
   axios.get(apiUrlCelsius).then(showTemperatureCelsius);
 }
 function showTemperatureCelsius(response) {
+  getRealTimeDate();
   console.log(response);
   let temperatureCelsius = response.data.main.temp;
   temperatureCelsius = Math.round(temperatureCelsius);
@@ -38,7 +70,7 @@ function showTemperatureCelsius(response) {
   let apiWind = response.data.wind.speed;
   apiWind = Math.round(apiWind);
   let weatherHumidityWind = document.querySelector("#weather-humidity-wind");
-  weatherHumidityWind.innerHTML = `Humidity: ${apiHumidity}% <br /> Wind: ${apiWind}km/h`;
+  weatherHumidityWind.innerHTML = `Humidity: ${apiHumidity}% <br /> Wind: ${apiWind}m/s`;
 }
 function getPosition() {
   navigator.geolocation.getCurrentPosition(handlePosition);
@@ -65,41 +97,24 @@ function showFahrenheit() {
   axios.get(apiUrlFahrenheit).then(showTemperatureFahrenheit);
 }
 function showTemperatureFahrenheit(response) {
+  getRealTimeDate();
+  console.log(response);
   let temperatureFahrenheit = response.data.main.temp;
   temperatureFahrenheit = Math.round(temperatureFahrenheit);
   let degrees = document.querySelector("#temperature-number");
   degrees.innerHTML = `${temperatureFahrenheit}`;
+  let description = response.data.weather[0].description;
+  let weatherDescription = document.querySelector("#weather-description");
+  weatherDescription.innerHTML = `${description}`;
+  let apiHumidity = response.data.main.humidity;
+  apiHumidity = Math.round(apiHumidity);
+  let apiWind = response.data.wind.speed;
+  apiWind = Math.round(apiWind);
+  let weatherHumidityWind = document.querySelector("#weather-humidity-wind");
+  weatherHumidityWind.innerHTML = `Humidity: ${apiHumidity}% <br /> Wind: ${apiWind}mph`;
 }
-let realTimeDate = document.querySelector("#real-time-date");
-let now = new Date();
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
 
-let minutes = now.getMinutes();
-realTimeDate.innerHTML = `${days[now.getDay()]}, ${
-  months[now.getMonth()]
-} ${now.getDate()}, ${now.getHours()}:${getDigitsMinutes(minutes)}`;
+getRealTimeDate();
 let form = document.querySelector("#type-city");
 form.addEventListener("submit", search);
 let degreesCelsius = document.querySelector("#degrees-celsius");
