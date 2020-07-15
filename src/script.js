@@ -25,13 +25,18 @@ function showCelsius() {
   axios.get(apiUrlCelsius).then(showTemperatureCelsius);
 }
 function showTemperatureCelsius(response) {
+  console.log(response);
   let temperatureCelsius = response.data.main.temp;
   temperatureCelsius = Math.round(temperatureCelsius);
   let degrees = document.querySelector("#temperature-number");
   degrees.innerHTML = `${temperatureCelsius}`;
-  let description = response.data.weather[0].description;
+  let description = response.data.weather[0].main;
   let weatherDescription = document.querySelector("#weather-description");
   weatherDescription.innerHTML = `${description}`;
+  let apiHumidity = response.data.main.humidity;
+  apiHumidity = Math.round(apiHumidity);
+  let weatherHumidity = document.querySelector("#weather-humidity");
+  weatherHumidity.innerHTML = `Humidity: ${apiHumidity}%`;
 }
 function getPosition() {
   navigator.geolocation.getCurrentPosition(handlePosition);
