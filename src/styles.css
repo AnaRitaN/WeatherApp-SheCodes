@@ -18,7 +18,7 @@
   font-family: "Source Code Pro", monospace;
 }
 .form-inline {
-  padding: 10px 0px 15px;
+  padding: 10px 0px;
 }
 .btn.btn-primary.mb-2 {
   border: 1px solid;
@@ -39,7 +39,8 @@
 .btn.btn-link {
   color: white;
   text-align: left;
-  margin: auto 50px;
+  margin: auto 5px;
+  text-decoration: underline;
 }
 .location {
   margin: 10px auto;
@@ -58,7 +59,8 @@ i.fa-map-marker-alt {
   color: white;
 }
 .city strong {
-  font-size: 30px;
+  font-size: 35px;
+  text-transform: capitalize;
 }
 
 i.fa-cloud-sun.big {
@@ -70,9 +72,9 @@ i.fa-cloud-sun.big {
   margin-bottom: 0em;
 }
 .temperature {
-  font-size: 75px;
+  font-size: 70px;
   color: white;
-  line-height: 90px;
+  line-height: 80px;
   padding-top: 10px;
   display: inline;
 }
@@ -80,6 +82,8 @@ i.fa-cloud-sun.big {
 .temperature.fahrenheit,
 .temperature.dash {
   font-size: 20px;
+  position: relative;
+  top: -36px;
 }
 .temperature.celsius:hover,
 .temperature.fahrenheit:hover {
