@@ -32,53 +32,68 @@ function displayDate(dateApi) {
   } ${date.getDate()}, at ${date.getHours()}:${minutes}`;
 }
 function changeIconForecast(id) {
-  let temperatureImage = document.querySelector("#firstIcon");
   if (id === 800) {
-    temperatureImage.setAttribute("class", "fas fa-sun small");
+    return "fas fa-sun small";
   }
   if (id >= 801 && id <= 804) {
-    temperatureImage.setAttribute("class", "fas fa-cloud-sun small");
+    return "fas fa-cloud-sun small";
   }
   if ((id >= 300 && id <= 321) || (id >= 520 && id <= 531)) {
-    temperatureImage.setAttribute("class", "fas fa-cloud-showers-heavy small");
+    return "fas fa-cloud-showers-heavy small";
   }
   if (id >= 500 && id <= 504) {
-    temperatureImage.setAttribute("class", "fas fa-cloud-sun-rain small");
+    return "fas fa-cloud-sun-rain small";
   }
   if (id >= 200 && id <= 232) {
-    temperatureImage.setAttribute("class", "fas fa-bolt small");
+    return "fas fa-bolt small";
   }
   if ((id >= 600 && id <= 622) || id === 511) {
-    temperatureImage.setAttribute("class", "fas fa-snowflake small");
+    return "fas fa-snowflake small";
   }
   if (id >= 701 && id <= 781) {
-    temperatureImage.setAttribute("class", "fas fa-smog small");
+    return "fas fa-smog small";
   }
 }
 function changeDayForecast(dateApi) {
   let date = new Date(dateApi);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  let cardTitle = document.querySelector("#firstTitle");
-  cardTitle.innerHTML = `${days[date.getDay()]}`;
+  return `${days[date.getDay()]}`;
 }
 function showForecast(response) {
   console.log(response);
-  let maximumTemperature = document.querySelector("#firstMaxTemp");
-  let minimumTemperature = document.querySelector("#firstMinTemp");
-  let cardIcon = document.querySelector("#firstIcon");
-  let cardTitle = document.querySelector("#firstTitle");
-  maximumTemperature.innerHTML = `${Math.round(
-    response.data.daily[1].temp.max
-  )}°`;
-  minimumTemperature.innerHTML = `${Math.round(
-    response.data.daily[1].temp.min
-  )}°`;
-  changeIconForecast(response.data.daily[1].weather[0].id);
-  changeDayForecast(response.data.daily[1].dt * 1000);
+  let forecastCard = document.querySelector("#cardsForecast");
+  forecastCard.innerHTML = null;
+  let forecastResponse = null;
+  for (let index = 1; index < 7; index++) {
+    forecastResponse = response.data.daily[index];
+    forecastCard.innerHTML += `<div class="col-md-2">
+            <div class="card weekDay"><div class="cardTitle">${changeDayForecast(
+              forecastResponse.dt * 1000
+            )}</div>
+              <div class="cardIcon">
+                <i class="${changeIconForecast(
+                  forecastResponse.weather[0].id
+                )}"></i>
+              </div>
+              <div class="cardTemperature">
+                <span class="maximumTemperature">${Math.round(
+                  forecastResponse.temp.max
+                )}°</span>
+                <span class="minimumTemperature"">${Math.round(
+                  forecastResponse.temp.min
+                )}°</span>
+              </div></div>
+          </div>`;
+  }
 }
-function getApiForecast(latitude, longitude) {
+function getApiForecastCelsius(latitude, longitude) {
   let apiKey = "0987205707074255a39169907ca55577";
   let apiForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&%20exclude=hourly,daily&appid=${apiKey}&units=metric`;
+  axios.get(apiForecast).then(showForecast);
+}
+function getApiForecastFahrenheit(latitude, longitude) {
+  let apiKey = "0987205707074255a39169907ca55577";
+  let apiForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&%20exclude=hourly,daily&appid=${apiKey}&units=imperial`;
   axios.get(apiForecast).then(showForecast);
 }
 function search(event) {
@@ -101,7 +116,7 @@ function showCelsius() {
   axios.get(apiUrlCelsius).then(showTemperatureCelsius);
 }
 function showTemperatureCelsius(response) {
-  getApiForecast(response.data.coord.lat, response.data.coord.lon);
+  getApiForecastCelsius(response.data.coord.lat, response.data.coord.lon);
   let realTimeDate = document.querySelector("#real-time-date");
   realTimeDate.innerHTML = displayDate(response.data.dt * 1000);
   let temperatureCelsius = response.data.main.temp;
@@ -170,6 +185,7 @@ function showFahrenheit() {
   axios.get(apiUrlFahrenheit).then(showTemperatureFahrenheit);
 }
 function showTemperatureFahrenheit(response) {
+  getApiForecastFahrenheit(response.data.coord.lat, response.data.coord.lon);
   let realTimeDate = document.querySelector("#real-time-date");
   realTimeDate.innerHTML = displayDate(response.data.dt * 1000);
   let temperatureFahrenheit = response.data.main.temp;
