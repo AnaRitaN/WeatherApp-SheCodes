@@ -60,7 +60,6 @@ function changeDayForecast(dateApi) {
   return `${days[date.getDay()]}`;
 }
 function showForecast(response) {
-  console.log(response);
   let forecastCard = document.querySelector("#cardsForecast");
   forecastCard.innerHTML = null;
   let forecastResponse = null;
@@ -100,19 +99,20 @@ function search(event) {
   event.preventDefault();
   let city = document.querySelector("#real-location");
   let searchedCity = document.querySelector("#searched-city");
-  if (searchedCity.value) {
-    city.innerHTML = `${searchedCity.value}`;
-  } else {
-    ("❤ Search for a city");
-  }
+  city.innerHTML = `${searchedCity.value}`;
   let apiKey = "0987205707074255a39169907ca55577";
   let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=${searchedCity.value}&appid=${apiKey}&units=metric`;
   axios.get(apiUrlCelsius).then(showTemperatureCelsius);
+  console.log(axios.get(apiUrlCelsius).then(showTemperatureCelsius).cod);
+  if ((axios.get(apiUrlCelsius).cod = 404)) {
+    getDefaultInfoLisbon();
+    alert("Opps, we could not find that city. Try a different one.");
+  }
 }
 function showCelsius() {
-  let searchedCity = document.querySelector("#searched-city");
+  let city = document.querySelector("#real-location");
   let apiKey = "0987205707074255a39169907ca55577";
-  let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=${searchedCity.value}&appid=${apiKey}&units=metric`;
+  let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=${city.innerHTML}&appid=${apiKey}&units=metric`;
   axios.get(apiUrlCelsius).then(showTemperatureCelsius);
 }
 function showTemperatureCelsius(response) {
@@ -135,6 +135,13 @@ function showTemperatureCelsius(response) {
   changeIconMain(response.data.weather[0].id);
   let temperatureImage = document.querySelector("#temperature-image");
   temperatureImage.setAttribute("alt", response.data.weather[0].description);
+}
+function getDefaultInfoLisbon() {
+  let city = document.querySelector("#real-location");
+  city.innerHTML = "Lisbon";
+  let apiKey = "0987205707074255a39169907ca55577";
+  let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=lisbon&appid=${apiKey}&units=metric`;
+  axios.get(apiUrlCelsius).then(showTemperatureCelsius);
 }
 function changeIconMain(id) {
   let temperatureImage = document.querySelector("#temperature-image");
@@ -168,7 +175,7 @@ function displayCurrentLocation(response) {
   let city = document.querySelector("#real-location");
   city.innerHTML = `${currentLocation}`;
   let searchedCity = document.querySelector("#searched-city");
-  searchedCity.value = `${currentLocation}`;
+  searchedCity.value = null;
 }
 function handlePosition(position) {
   let latitude = position.coords.latitude;
@@ -179,9 +186,9 @@ function handlePosition(position) {
   axios.get(apiUrlCelsius).then(displayCurrentLocation);
 }
 function showFahrenheit() {
-  let searchedCity = document.querySelector("#searched-city");
+  let city = document.querySelector("#real-location");
   let apiKey = "0987205707074255a39169907ca55577";
-  let apiUrlFahrenheit = `https://api.openweathermap.org/data/2.5/weather?q=${searchedCity.value}&appid=${apiKey}&units=imperial`;
+  let apiUrlFahrenheit = `https://api.openweathermap.org/data/2.5/weather?q=${city.innerHTML}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrlFahrenheit).then(showTemperatureFahrenheit);
 }
 function showTemperatureFahrenheit(response) {
@@ -204,15 +211,6 @@ function showTemperatureFahrenheit(response) {
   changeIconMain(response.data.weather[0].id);
   let temperatureImage = document.querySelector("#temperature-image");
   temperatureImage.setAttribute("alt", response.data.weather[0].description);
-}
-function getDefaultInfoLisbon() {
-  let city = document.querySelector("#real-location");
-  city.innerHTML = "Lisbon";
-  let apiKey = "0987205707074255a39169907ca55577";
-  let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=lisbon&appid=${apiKey}&units=metric`;
-  axios.get(apiUrlCelsius).then(showTemperatureCelsius);
-  let searchedCity = document.querySelector("#searched-city");
-  searchedCity.value = "Lisbon";
 }
 getDefaultInfoLisbon();
 let form = document.querySelector("#type-city");

@@ -13,7 +13,7 @@
   background-position: center;
   background-size: cover;
   background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
-  background-image: url(/C:/Users/AnaRitaNeto/Documents/GitHub/WeatherApp-SheCodes/img/daySkyPicture.png);
+  background-image: url(/C:/Users/AnaRitaNeto/Documents/GitHub/WeatherApp-SheCodes/img/nightSkyPicture.png);
 }
 .title {
   line-height: 20px;
@@ -130,7 +130,6 @@ i.fa-map-marker-alt {
     #ee609c 66%,
     #ee609c 100%
   );
-  cursor: pointer;
 }
 .cardTemperature {
   font-size: 15px;
