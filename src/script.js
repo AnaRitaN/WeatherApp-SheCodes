@@ -54,12 +54,37 @@ function changeIconForecast(id) {
     return "fas fa-smog small";
   }
 }
+function changeIconMain(id) {
+  let temperatureImage = document.querySelector("#temperature-image");
+  if (id === 800) {
+    temperatureImage.setAttribute("class", "fas fa-sun");
+  }
+  if (id >= 801 && id <= 804) {
+    temperatureImage.setAttribute("class", "fas fa-cloud-sun");
+  }
+  if ((id >= 300 && id <= 321) || (id >= 520 && id <= 531)) {
+    temperatureImage.setAttribute("class", "fas fa-cloud-showers-heavy");
+  }
+  if (id >= 500 && id <= 504) {
+    temperatureImage.setAttribute("class", "fas fa-cloud-sun-rain");
+  }
+  if (id >= 200 && id <= 232) {
+    temperatureImage.setAttribute("class", "fas fa-bolt");
+  }
+  if ((id >= 600 && id <= 622) || id === 511) {
+    temperatureImage.setAttribute("class", "fas fa-snowflake");
+  }
+  if (id >= 701 && id <= 781) {
+    temperatureImage.setAttribute("class", "fas fa-smog");
+  }
+}
 function changeDayForecast(dateApi) {
   let date = new Date(dateApi);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   return `${days[date.getDay()]}`;
 }
 function showForecast(response) {
+  console.log(response);
   let forecastCard = document.querySelector("#cardsForecast");
   forecastCard.innerHTML = null;
   let forecastResponse = null;
@@ -95,25 +120,6 @@ function getApiForecastFahrenheit(latitude, longitude) {
   let apiForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&%20exclude=hourly,daily&appid=${apiKey}&units=imperial`;
   axios.get(apiForecast).then(showForecast);
 }
-function search(event) {
-  event.preventDefault();
-  let city = document.querySelector("#real-location");
-  let searchedCity = document.querySelector("#searched-city");
-  city.innerHTML = `${searchedCity.value}`;
-  let apiKey = "0987205707074255a39169907ca55577";
-  let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=${searchedCity.value}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrlCelsius).then(showTemperatureCelsius);
-  if ((axios.get(apiUrlCelsius).cod = 404)) {
-    getDefaultInfoLisbon();
-    alert("Opps, we could not find that city. Try a different one.");
-  }
-}
-function showCelsius() {
-  let city = document.querySelector("#real-location");
-  let apiKey = "0987205707074255a39169907ca55577";
-  let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=${city.innerHTML}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrlCelsius).then(showTemperatureCelsius);
-}
 function showTemperatureCelsius(response) {
   getApiForecastCelsius(response.data.coord.lat, response.data.coord.lon);
   let realTimeDate = document.querySelector("#real-time-date");
@@ -135,39 +141,27 @@ function showTemperatureCelsius(response) {
   let temperatureImage = document.querySelector("#temperature-image");
   temperatureImage.setAttribute("alt", response.data.weather[0].description);
 }
+function search(event) {
+  event.preventDefault();
+  let city = document.querySelector("#real-location");
+  let searchedCity = document.querySelector("#searched-city");
+  city.innerHTML = `${searchedCity.value}`;
+  let apiKey = "0987205707074255a39169907ca55577";
+  let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=${searchedCity.value}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrlCelsius).then(showTemperatureCelsius);
+}
+function showCelsius() {
+  let city = document.querySelector("#real-location");
+  let apiKey = "0987205707074255a39169907ca55577";
+  let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=${city.innerHTML}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrlCelsius).then(showTemperatureCelsius);
+}
 function getDefaultInfoLisbon() {
   let city = document.querySelector("#real-location");
   city.innerHTML = "Lisbon";
   let apiKey = "0987205707074255a39169907ca55577";
   let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=lisbon&appid=${apiKey}&units=metric`;
   axios.get(apiUrlCelsius).then(showTemperatureCelsius);
-}
-function changeIconMain(id) {
-  let temperatureImage = document.querySelector("#temperature-image");
-  if (id === 800) {
-    temperatureImage.setAttribute("class", "fas fa-sun");
-  }
-  if (id >= 801 && id <= 804) {
-    temperatureImage.setAttribute("class", "fas fa-cloud-sun");
-  }
-  if ((id >= 300 && id <= 321) || (id >= 520 && id <= 531)) {
-    temperatureImage.setAttribute("class", "fas fa-cloud-showers-heavy");
-  }
-  if (id >= 500 && id <= 504) {
-    temperatureImage.setAttribute("class", "fas fa-cloud-sun-rain");
-  }
-  if (id >= 200 && id <= 232) {
-    temperatureImage.setAttribute("class", "fas fa-bolt");
-  }
-  if ((id >= 600 && id <= 622) || id === 511) {
-    temperatureImage.setAttribute("class", "fas fa-snowflake");
-  }
-  if (id >= 701 && id <= 781) {
-    temperatureImage.setAttribute("class", "fas fa-smog");
-  }
-}
-function getPosition() {
-  navigator.geolocation.getCurrentPosition(handlePosition);
 }
 function displayCurrentLocation(response) {
   let currentLocation = response.data.name;
@@ -177,18 +171,16 @@ function displayCurrentLocation(response) {
   searchedCity.value = null;
 }
 function handlePosition(position) {
+  console.log(position);
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiKey = "0987205707074255a39169907ca55577";
   let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrlCelsius).then(showTemperatureCelsius);
   axios.get(apiUrlCelsius).then(displayCurrentLocation);
+  axios.get(apiUrlCelsius).then(showTemperatureCelsius);
 }
-function showFahrenheit() {
-  let city = document.querySelector("#real-location");
-  let apiKey = "0987205707074255a39169907ca55577";
-  let apiUrlFahrenheit = `https://api.openweathermap.org/data/2.5/weather?q=${city.innerHTML}&appid=${apiKey}&units=imperial`;
-  axios.get(apiUrlFahrenheit).then(showTemperatureFahrenheit);
+function getPosition() {
+  navigator.geolocation.getCurrentPosition(handlePosition);
 }
 function showTemperatureFahrenheit(response) {
   getApiForecastFahrenheit(response.data.coord.lat, response.data.coord.lon);
@@ -210,6 +202,12 @@ function showTemperatureFahrenheit(response) {
   changeIconMain(response.data.weather[0].id);
   let temperatureImage = document.querySelector("#temperature-image");
   temperatureImage.setAttribute("alt", response.data.weather[0].description);
+}
+function showFahrenheit() {
+  let city = document.querySelector("#real-location");
+  let apiKey = "0987205707074255a39169907ca55577";
+  let apiUrlFahrenheit = `https://api.openweathermap.org/data/2.5/weather?q=${city.innerHTML}&appid=${apiKey}&units=imperial`;
+  axios.get(apiUrlFahrenheit).then(showTemperatureFahrenheit);
 }
 getDefaultInfoLisbon();
 let form = document.querySelector("#type-city");
