@@ -103,7 +103,6 @@ function search(event) {
   let apiKey = "0987205707074255a39169907ca55577";
   let apiUrlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=${searchedCity.value}&appid=${apiKey}&units=metric`;
   axios.get(apiUrlCelsius).then(showTemperatureCelsius);
-  console.log(axios.get(apiUrlCelsius).then(showTemperatureCelsius).cod);
   if ((axios.get(apiUrlCelsius).cod = 404)) {
     getDefaultInfoLisbon();
     alert("Opps, we could not find that city. Try a different one.");
