@@ -1,8 +1,6 @@
 .weather-app {
   font-family: "Noto Sans HK", sans-serif;
-  background-position: center;
-  background-size: cover;
-  background-image: url(/C:/Users/AnaRitaNeto/Documents/GitHub/WeatherApp-SheCodes/img/daySkyPicture.png);
+  background-image: linear-gradient(to top, #b224ef 0%, #7579ff 100%);
   margin-top: 25px;
   padding: 20px 30px;
   border-radius: 10px;
@@ -127,7 +125,7 @@ i.fa-map-marker-alt {
 }
 .cardTemperature {
   font-size: 15px;
-  color: gray;
+  color: #dcdcdc;
   font-weight: bold;
 }
 .maximumTemperature {
