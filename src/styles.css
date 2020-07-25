@@ -72,7 +72,7 @@ i.fa-map-marker-alt {
 .temperature.celsius,
 .temperature.fahrenheit,
 .temperature.dash {
-  font-size: 20px;
+  font-size: 16px;
   position: relative;
   top: -36px;
 }

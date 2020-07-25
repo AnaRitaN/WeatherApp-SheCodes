@@ -84,7 +84,6 @@ function changeDayForecast(dateApi) {
   return `${days[date.getDay()]}`;
 }
 function showForecast(response) {
-  console.log(response);
   let forecastCard = document.querySelector("#cardsForecast");
   forecastCard.innerHTML = null;
   let forecastResponse = null;
@@ -171,7 +170,6 @@ function displayCurrentLocation(response) {
   searchedCity.value = null;
 }
 function handlePosition(position) {
-  console.log(position);
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiKey = "0987205707074255a39169907ca55577";
